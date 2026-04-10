@@ -1,11 +1,11 @@
 {
-  "name": "Shade Calculator",
+  "name": "Shade Calculator · Costa Farms",
   "short_name": "Shade Calc",
-  "description": "Calculadora de porcentaje de sombra combinada para shade y plástico agrícola",
-  "start_url": "/",
+  "description": "Calculadora de porcentaje de sombra combinada",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0a1628",
-  "theme_color": "#0a1628",
+  "background_color": "#E8A020",
+  "theme_color": "#1B3A5C",
   "orientation": "portrait-primary",
   "icons": [
     {
