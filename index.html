@@ -3,124 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0a1628">
+  <meta name="theme-color" content="#1B3A5C">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Shade Calc">
-  <meta name="description" content="Calculadora de porcentaje de sombra combinada para shade y plástico agrícola">
-  <title>Shade Calculator</title>
+  <meta name="description" content="Calculadora de porcentaje de sombra — Costa Farms Maintenance">
+  <title>Shade Calculator · Costa Farms</title>
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg:        #0a1628;
-      --bg2:       #0f1e36;
-      --bg3:       #162540;
-      --surface:   #1a2d4a;
-      --border:    rgba(255,255,255,0.08);
-      --border2:   rgba(255,255,255,0.14);
-      --text:      #e8edf5;
-      --muted:     #7a90ac;
-      --accent:    #3af0a2;
-      --accent2:   #1ecf83;
-      --accent-bg: rgba(58,240,162,0.08);
-      --orange:    #ff8c42;
-      --blue:      #4fa3e0;
-      --purple:    #a78bfa;
-      --pink:      #f472b6;
-      --amber:     #fbbf24;
-      --radius:    14px;
-      --radius-sm: 8px;
+      --navy:       #1B3A5C;
+      --navy-dark:  #122740;
+      --navy-mid:   #2a4f78;
+      --gold:       #E8A020;
+      --gold-light: #F5B842;
+      --gold-pale:  #FDF3DC;
+      --cream:      #F7F2E8;
+      --cream2:     #EDE7D8;
+      --green:      #3A7D44;
+      --green-pale: #EAF4EC;
+      --text:       #1B3A5C;
+      --muted:      #6B7F94;
+      --white:      #FFFFFF;
+      --border:     rgba(27,58,92,0.12);
+      --border2:    rgba(27,58,92,0.2);
+      --radius:     14px;
+      --radius-sm:  8px;
+      --shadow:     0 2px 16px rgba(27,58,92,0.10);
+      --shadow-md:  0 4px 24px rgba(27,58,92,0.14);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
-      font-family: 'Syne', sans-serif;
-      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
       color: var(--text);
       min-height: 100vh;
       min-height: 100dvh;
       overflow-x: hidden;
     }
 
-    /* Background grid texture */
+    /* Subtle leaf pattern background */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(58,240,162,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(58,240,162,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-image: radial-gradient(circle at 20% 20%, rgba(232,160,32,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(58,125,68,0.06) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
     .app { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; padding: 0 0 100px; }
 
-    /* Header */
+    /* ---- Header ---- */
     .header {
-      padding: 52px 20px 20px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+      background: var(--navy);
+      padding: 48px 20px 24px;
+      position: relative;
+      overflow: hidden;
     }
-    .header-left {}
-    .logo-mark {
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 20px;
+      background: var(--cream);
+      border-radius: 20px 20px 0 0;
+    }
+    /* Decorative circle */
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(232,160,32,0.12);
+      pointer-events: none;
+    }
+
+    .header-inner { position: relative; z-index: 1; }
+
+    .brand-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
+      justify-content: space-between;
+      margin-bottom: 16px;
     }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; }
     .logo-icon {
-      width: 32px; height: 32px;
-      background: var(--accent);
-      border-radius: 8px;
+      width: 38px; height: 38px;
+      background: var(--gold);
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
-    .logo-icon svg { width: 18px; height: 18px; }
-    .brand {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .header h1 {
-      font-size: 26px;
+    .logo-icon svg { width: 22px; height: 22px; }
+    .logo-text {}
+    .logo-costa {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
       font-weight: 800;
-      color: var(--text);
-      line-height: 1.1;
+      color: var(--white);
+      line-height: 1;
     }
-    .header h1 span { color: var(--accent); }
-    .version-badge {
+    .logo-farms {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .version-pill {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 20px;
       padding: 4px 10px;
     }
 
-    /* Tab bar */
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .header-title span { color: var(--gold-light); }
+    .header-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+    }
+
+    /* ---- Install banner ---- */
+    #install-banner {
+      display: none;
+      margin: 16px 16px 0;
+      background: var(--gold-pale);
+      border: 1px solid rgba(232,160,32,0.35);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      align-items: center;
+      gap: 12px;
+    }
+    #install-banner p { font-size: 13px; font-weight: 600; flex: 1; color: var(--navy); }
+    #install-banner p small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 1px; }
+    .install-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600;
+      padding: 8px 14px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* ---- Tab bar ---- */
     .tab-bar {
       display: flex;
       gap: 0;
-      margin: 0 16px 20px;
-      background: var(--surface);
+      margin: 20px 16px 16px;
+      background: var(--white);
       border-radius: var(--radius);
       padding: 4px;
       border: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
     .tab {
       flex: 1;
       padding: 10px 8px;
-      font-family: 'Syne', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 600;
       border: none;
@@ -129,33 +193,24 @@
       color: var(--muted);
       cursor: pointer;
       transition: all 0.2s;
-      letter-spacing: 0.01em;
     }
     .tab.active {
-      background: var(--accent);
-      color: #0a1628;
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(27,58,92,0.25);
     }
 
-    /* Cards */
+    /* ---- Cards ---- */
     .card {
       margin: 0 16px 14px;
-      background: var(--bg2);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px;
-      position: relative;
-      overflow: hidden;
+      box-shadow: var(--shadow);
     }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(58,240,162,0.3), transparent);
-    }
-
     .card-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -163,81 +218,76 @@
       margin-bottom: 14px;
     }
 
-    /* Layer rows */
+    /* ---- Layer rows ---- */
     .layer-row {
       display: grid;
-      grid-template-columns: 72px 1fr 52px auto;
+      grid-template-columns: 62px 1fr 52px auto;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 10px 10px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      background: var(--bg3);
+      background: var(--cream);
       margin-bottom: 8px;
-      transition: opacity 0.2s, border-color 0.2s;
+      transition: opacity 0.2s;
     }
-    .layer-row.disabled { opacity: 0.35; }
-    .layer-row.disabled .layer-controls { pointer-events: none; }
+    .layer-row.disabled { opacity: 0.4; }
+    .layer-row.disabled input { pointer-events: none; }
 
     .layer-badge {
       font-family: 'DM Mono', monospace;
       font-size: 11px;
       font-weight: 500;
-      padding: 4px 8px;
+      padding: 4px 6px;
       border-radius: 6px;
       text-align: center;
       white-space: nowrap;
     }
-    .badge-s1  { background: rgba(79,163,224,0.15); color: #4fa3e0; border: 1px solid rgba(79,163,224,0.25); }
-    .badge-s2  { background: rgba(58,240,162,0.12); color: #3af0a2; border: 1px solid rgba(58,240,162,0.2); }
-    .badge-s3  { background: rgba(255,140,66,0.12);  color: #ff8c42; border: 1px solid rgba(255,140,66,0.2); }
-    .badge-s4  { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
-    .badge-s5  { background: rgba(244,114,182,0.12); color: #f472b6; border: 1px solid rgba(244,114,182,0.2); }
-    .badge-pl  { background: rgba(251,191,36,0.12);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
-
-    .layer-controls { display: contents; }
+    .b-s1 { background: rgba(27,58,92,0.1);  color: var(--navy);  border: 1px solid rgba(27,58,92,0.2); }
+    .b-s2 { background: rgba(58,125,68,0.1); color: var(--green); border: 1px solid rgba(58,125,68,0.2); }
+    .b-s3 { background: rgba(232,160,32,0.12); color: #9a6500; border: 1px solid rgba(232,160,32,0.3); }
+    .b-s4 { background: rgba(180,60,60,0.09);  color: #8B2E2E; border: 1px solid rgba(180,60,60,0.2); }
+    .b-s5 { background: rgba(100,60,140,0.09); color: #4a2a7a; border: 1px solid rgba(100,60,140,0.2); }
+    .b-pl { background: rgba(232,160,32,0.15); color: #7a5000; border: 1px solid rgba(232,160,32,0.35); }
 
     input[type=range] {
       -webkit-appearance: none;
-      width: 100%;
-      height: 4px;
-      background: var(--surface);
-      border-radius: 2px;
-      outline: none;
+      width: 100%; height: 5px;
+      background: var(--cream2);
+      border-radius: 3px; outline: none;
     }
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 18px; height: 18px;
+      width: 20px; height: 20px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--navy);
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(58,240,162,0.4);
+      box-shadow: 0 2px 6px rgba(27,58,92,0.3);
+      border: 2px solid var(--white);
     }
     input[type=range]:disabled { opacity: 0.3; }
     input[type=range]:disabled::-webkit-slider-thumb { background: var(--muted); box-shadow: none; }
 
     input[type=number] {
       font-family: 'DM Mono', monospace;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--surface);
+      font-size: 14px; font-weight: 500;
+      color: var(--navy);
+      background: var(--white);
       border: 1px solid var(--border2);
       border-radius: var(--radius-sm);
       padding: 6px 4px;
-      width: 52px;
-      text-align: center;
+      width: 52px; text-align: center;
       -moz-appearance: textfield;
     }
     input[type=number]::-webkit-outer-spin-button,
     input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
-    input[type=number]:focus { outline: none; border-color: var(--accent); }
+    input[type=number]:focus { outline: none; border-color: var(--gold); }
     input[type=number]:disabled { opacity: 0.35; }
 
     .toggle-btn {
       font-family: 'DM Mono', monospace;
       font-size: 11px;
-      padding: 5px 9px;
+      padding: 5px 8px;
       border-radius: 6px;
       border: 1px solid var(--border2);
       background: transparent;
@@ -247,57 +297,63 @@
       transition: all 0.15s;
     }
     .toggle-btn.on {
-      background: rgba(58,240,162,0.12);
-      color: var(--accent);
-      border-color: rgba(58,240,162,0.3);
+      background: var(--green-pale);
+      color: var(--green);
+      border-color: rgba(58,125,68,0.3);
     }
 
-    /* Result card */
+    /* ---- Result card ---- */
     .result-card {
       margin: 0 16px 14px;
-      background: var(--bg2);
-      border: 1px solid rgba(58,240,162,0.2);
+      background: var(--navy);
       border-radius: var(--radius);
       padding: 20px 18px;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-md);
     }
     .result-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      top: -50px; right: -50px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(232,160,32,0.1);
+      pointer-events: none;
     }
     .result-card::after {
       content: '';
       position: absolute;
-      top: -40px; right: -40px;
+      bottom: -40px; left: -40px;
       width: 120px; height: 120px;
-      background: radial-gradient(circle, rgba(58,240,162,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      background: rgba(58,125,68,0.08);
       pointer-events: none;
     }
     .result-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+      position: relative; z-index: 1;
     }
     .result-main {
-      font-size: 52px;
-      font-weight: 800;
-      color: var(--accent);
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--gold-light);
       line-height: 1;
       margin-bottom: 4px;
-      font-variant-numeric: tabular-nums;
+      position: relative; z-index: 1;
     }
     .result-formula {
       font-family: 'DM Mono', monospace;
       font-size: 11px;
-      color: var(--muted);
+      color: rgba(255,255,255,0.4);
       margin-bottom: 16px;
+      position: relative; z-index: 1;
     }
 
     .stats-row {
@@ -305,143 +361,105 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-bottom: 16px;
+      position: relative; z-index: 1;
     }
     .stat-box {
-      background: var(--bg3);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius-sm);
-      padding: 12px;
+      padding: 10px 12px;
     }
     .stat-label {
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 3px;
     }
     .stat-value {
       font-family: 'DM Mono', monospace;
       font-size: 20px;
       font-weight: 500;
-      color: var(--text);
+      color: var(--white);
     }
 
-    /* Vis bar */
     .vis-label {
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.45);
       margin-bottom: 6px;
+      position: relative; z-index: 1;
     }
     .vis-bar {
-      height: 32px;
+      height: 30px;
       border-radius: 8px;
-      background: var(--surface);
+      background: rgba(255,255,255,0.08);
       overflow: hidden;
       display: flex;
+      position: relative; z-index: 1;
     }
     .vis-shade {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
       display: flex; align-items: center; justify-content: center;
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      color: #0a1628;
-      transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      font-size: 11px; font-weight: 500;
+      color: var(--navy);
+      transition: width 0.4s cubic-bezier(0.34,1.2,0.64,1);
     }
     .vis-light {
       height: 100%;
       flex: 1;
       display: flex; align-items: center; justify-content: center;
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.4);
     }
 
-    /* Breakdown card */
+    /* ---- Breakdown ---- */
     .breakdown-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 0;
+      padding: 9px 0;
       border-bottom: 1px solid var(--border);
     }
     .breakdown-row:last-child { border-bottom: none; }
-    .breakdown-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .breakdown-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      flex: 1;
-    }
+    .breakdown-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .breakdown-name { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
     .breakdown-val {
       font-family: 'DM Mono', monospace;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--accent);
+      font-size: 14px; font-weight: 500;
+      color: var(--navy);
     }
-    .breakdown-bar-wrap {
-      width: 60px;
-      height: 4px;
-      background: var(--surface);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .breakdown-bar-fill {
-      height: 100%;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: width 0.3s;
-    }
+    .breakdown-bar-wrap { width: 56px; height: 4px; background: var(--cream2); border-radius: 2px; overflow: hidden; }
+    .breakdown-bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
 
-    /* Footer */
+    /* ---- Footer ---- */
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 24px 20px 16px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-sub {
       font-size: 11px;
       color: var(--muted);
+      margin-top: 3px;
       font-family: 'DM Mono', monospace;
-    }
-    .footer span { color: var(--accent); }
-
-    /* Install banner */
-    #install-banner {
-      display: none;
-      margin: 0 16px 14px;
-      background: var(--accent-bg);
-      border: 1px solid rgba(58,240,162,0.25);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      align-items: center;
-      gap: 12px;
-    }
-    #install-banner p { font-size: 13px; font-weight: 600; flex: 1; color: var(--text); }
-    #install-banner p small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
-    .install-btn {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 8px 14px;
-      background: var(--accent);
-      color: #0a1628;
-      border: none;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      white-space: nowrap;
     }
 
     @media (min-width: 521px) {
       .app { padding-top: 20px; }
-      .header { padding-top: 40px; }
+      .header { border-radius: 0 0 var(--radius) var(--radius); }
     }
   </style>
 </head>
@@ -450,24 +468,31 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="header-left">
-      <div class="logo-mark">
-        <div class="logo-icon">
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 14 L9 4 L16 14" stroke="#0a1628" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M5 14 L9 8 L13 14" stroke="#0a1628" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="logo-wrap">
+          <svg width="72" height="60" viewBox="0 0 72 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="72" height="60" rx="10" fill="#E8A020"/>
+            <text x="36" y="34" text-anchor="middle"
+              font-family="'Playfair Display', Georgia, serif"
+              font-size="22" font-weight="700" font-style="italic"
+              fill="white" letter-spacing="-0.5">costa</text>
+            <text x="36" y="47" text-anchor="middle"
+              font-family="'DM Sans', Arial, sans-serif"
+              font-size="8.5" font-weight="600"
+              fill="#1B3A5C" letter-spacing="3.5">FARMS</text>
           </svg>
         </div>
-        <span class="brand">Costa Farms</span>
+        <span class="version-pill">Maintenance v2</span>
       </div>
-      <h1>Shade <span>Calc</span></h1>
+      <div class="header-title">Shade <span>Calculator</span></div>
+      <div class="header-sub">Cálculo de sombra combinada por capas</div>
     </div>
-    <span class="version-badge">v2.0</span>
   </div>
 
   <!-- Install banner -->
   <div id="install-banner">
-    <p>Instalar como app<small>Agregar al home screen</small></p>
+    <p>Instalar como app<small>Agregar al home screen del celular</small></p>
     <button class="install-btn" id="install-btn">Instalar</button>
   </div>
 
@@ -477,56 +502,47 @@
     <button class="tab" id="tab2" onclick="switchTab(2)">Plástico + Shade</button>
   </div>
 
-  <!-- ===== PANEL 1: Shade + Shade ===== -->
+  <!-- ===== PANEL 1 ===== -->
   <div id="panel1">
     <div class="card">
-      <div class="card-title">Capas de shade</div>
+      <div class="card-title">Capas de shade activas</div>
 
       <div class="layer-row" id="r1_1">
-        <span class="layer-badge badge-s1">S-1</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl1_1" oninput="sr('sl1_1','nb1_1');calcSS()">
-          <input type="number"  min="0" max="100" value="30" id="nb1_1" oninput="sn('sl1_1','nb1_1');calcSS()">
-        </div>
+        <span class="layer-badge b-s1">S-1</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl1_1" oninput="sr('sl1_1','nb1_1');calcSS()">
+        <input type="number" min="0" max="100" value="30" id="nb1_1" oninput="sn('sl1_1','nb1_1');calcSS()">
+        <span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">%</span>
       </div>
 
       <div class="layer-row" id="r1_2">
-        <span class="layer-badge badge-s2">S-2</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="50" id="sl1_2" oninput="sr('sl1_2','nb1_2');calcSS()">
-          <input type="number"  min="0" max="100" value="50" id="nb1_2" oninput="sn('sl1_2','nb1_2');calcSS()">
-        </div>
+        <span class="layer-badge b-s2">S-2</span>
+        <input type="range" min="0" max="100" step="1" value="50" id="sl1_2" oninput="sr('sl1_2','nb1_2');calcSS()">
+        <input type="number" min="0" max="100" value="50" id="nb1_2" oninput="sn('sl1_2','nb1_2');calcSS()">
+        <span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">%</span>
       </div>
 
       <div class="layer-row disabled" id="r1_3">
-        <span class="layer-badge badge-s3">S-3</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl1_3" oninput="sr('sl1_3','nb1_3');calcSS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb1_3" oninput="sn('sl1_3','nb1_3');calcSS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn1_3" onclick="toggle('1_3','r1_3','btn1_3','ss')">+ ON</button>
+        <span class="layer-badge b-s3">S-3</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl1_3" oninput="sr('sl1_3','nb1_3');calcSS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb1_3" oninput="sn('sl1_3','nb1_3');calcSS()" disabled>
+        <button class="toggle-btn" id="btn1_3" onclick="toggle('1_3','r1_3','btn1_3','ss')">+ON</button>
       </div>
 
       <div class="layer-row disabled" id="r1_4">
-        <span class="layer-badge badge-s4">S-4</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl1_4" oninput="sr('sl1_4','nb1_4');calcSS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb1_4" oninput="sn('sl1_4','nb1_4');calcSS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn1_4" onclick="toggle('1_4','r1_4','btn1_4','ss')">+ ON</button>
+        <span class="layer-badge b-s4">S-4</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl1_4" oninput="sr('sl1_4','nb1_4');calcSS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb1_4" oninput="sn('sl1_4','nb1_4');calcSS()" disabled>
+        <button class="toggle-btn" id="btn1_4" onclick="toggle('1_4','r1_4','btn1_4','ss')">+ON</button>
       </div>
 
       <div class="layer-row disabled" id="r1_5">
-        <span class="layer-badge badge-s5">S-5</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl1_5" oninput="sr('sl1_5','nb1_5');calcSS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb1_5" oninput="sn('sl1_5','nb1_5');calcSS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn1_5" onclick="toggle('1_5','r1_5','btn1_5','ss')">+ ON</button>
+        <span class="layer-badge b-s5">S-5</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl1_5" oninput="sr('sl1_5','nb1_5');calcSS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb1_5" oninput="sn('sl1_5','nb1_5');calcSS()" disabled>
+        <button class="toggle-btn" id="btn1_5" onclick="toggle('1_5','r1_5','btn1_5','ss')">+ON</button>
       </div>
     </div>
 
-    <!-- Result -->
     <div class="result-card">
       <div class="result-label">Sombra combinada total</div>
       <div class="result-main" id="res1">65.0%</div>
@@ -541,70 +557,60 @@
           <div class="stat-value" id="ps1">35.0%</div>
         </div>
       </div>
-      <div class="vis-label">Distribución luz / sombra</div>
+      <div class="vis-label">Distribución sombra / luz</div>
       <div class="vis-bar">
         <div class="vis-shade" id="vsShade1" style="width:65%">65%</div>
         <div class="vis-light" id="vsLight1">35%</div>
       </div>
     </div>
 
-    <!-- Breakdown -->
     <div class="card">
       <div class="card-title">Aporte neto por capa</div>
       <div id="bd1"></div>
     </div>
   </div>
 
-  <!-- ===== PANEL 2: Plástico + Shade ===== -->
+  <!-- ===== PANEL 2 ===== -->
   <div id="panel2" style="display:none;">
     <div class="card">
       <div class="card-title">Capas activas</div>
 
       <div class="layer-row" id="r2_p">
-        <span class="layer-badge badge-pl">PLS</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="20" id="sl2_p" oninput="sr('sl2_p','nb2_p');calcPS()">
-          <input type="number"  min="0" max="100" value="20" id="nb2_p" oninput="sn('sl2_p','nb2_p');calcPS()">
-        </div>
+        <span class="layer-badge b-pl">PLS</span>
+        <input type="range" min="0" max="100" step="1" value="20" id="sl2_p" oninput="sr('sl2_p','nb2_p');calcPS()">
+        <input type="number" min="0" max="100" value="20" id="nb2_p" oninput="sn('sl2_p','nb2_p');calcPS()">
+        <span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">%</span>
       </div>
 
       <div class="layer-row" id="r2_1">
-        <span class="layer-badge badge-s1">S-1</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="50" id="sl2_1" oninput="sr('sl2_1','nb2_1');calcPS()">
-          <input type="number"  min="0" max="100" value="50" id="nb2_1" oninput="sn('sl2_1','nb2_1');calcPS()">
-        </div>
+        <span class="layer-badge b-s1">S-1</span>
+        <input type="range" min="0" max="100" step="1" value="50" id="sl2_1" oninput="sr('sl2_1','nb2_1');calcPS()">
+        <input type="number" min="0" max="100" value="50" id="nb2_1" oninput="sn('sl2_1','nb2_1');calcPS()">
+        <span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;">%</span>
       </div>
 
       <div class="layer-row disabled" id="r2_2">
-        <span class="layer-badge badge-s2">S-2</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl2_2" oninput="sr('sl2_2','nb2_2');calcPS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb2_2" oninput="sn('sl2_2','nb2_2');calcPS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn2_2" onclick="toggle('2_2','r2_2','btn2_2','ps')">+ ON</button>
+        <span class="layer-badge b-s2">S-2</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl2_2" oninput="sr('sl2_2','nb2_2');calcPS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb2_2" oninput="sn('sl2_2','nb2_2');calcPS()" disabled>
+        <button class="toggle-btn" id="btn2_2" onclick="toggle('2_2','r2_2','btn2_2','ps')">+ON</button>
       </div>
 
       <div class="layer-row disabled" id="r2_3">
-        <span class="layer-badge badge-s3">S-3</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl2_3" oninput="sr('sl2_3','nb2_3');calcPS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb2_3" oninput="sn('sl2_3','nb2_3');calcPS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn2_3" onclick="toggle('2_3','r2_3','btn2_3','ps')">+ ON</button>
+        <span class="layer-badge b-s3">S-3</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl2_3" oninput="sr('sl2_3','nb2_3');calcPS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb2_3" oninput="sn('sl2_3','nb2_3');calcPS()" disabled>
+        <button class="toggle-btn" id="btn2_3" onclick="toggle('2_3','r2_3','btn2_3','ps')">+ON</button>
       </div>
 
       <div class="layer-row disabled" id="r2_4">
-        <span class="layer-badge badge-s4">S-4</span>
-        <div class="layer-controls">
-          <input type="range" min="0" max="100" step="1" value="30" id="sl2_4" oninput="sr('sl2_4','nb2_4');calcPS()" disabled>
-          <input type="number"  min="0" max="100" value="30" id="nb2_4" oninput="sn('sl2_4','nb2_4');calcPS()" disabled>
-        </div>
-        <button class="toggle-btn" id="btn2_4" onclick="toggle('2_4','r2_4','btn2_4','ps')">+ ON</button>
+        <span class="layer-badge b-s4">S-4</span>
+        <input type="range" min="0" max="100" step="1" value="30" id="sl2_4" oninput="sr('sl2_4','nb2_4');calcPS()" disabled>
+        <input type="number" min="0" max="100" value="30" id="nb2_4" oninput="sn('sl2_4','nb2_4');calcPS()" disabled>
+        <button class="toggle-btn" id="btn2_4" onclick="toggle('2_4','r2_4','btn2_4','ps')">+ON</button>
       </div>
     </div>
 
-    <!-- Result -->
     <div class="result-card">
       <div class="result-label">Sombra combinada total</div>
       <div class="result-main" id="res2">60.0%</div>
@@ -619,90 +625,93 @@
           <div class="stat-value" id="ps2">40.0%</div>
         </div>
       </div>
-      <div class="vis-label">Distribución luz / sombra</div>
+      <div class="vis-label">Distribución sombra / luz</div>
       <div class="vis-bar">
         <div class="vis-shade" id="vsShade2" style="width:60%">60%</div>
         <div class="vis-light" id="vsLight2">40%</div>
       </div>
     </div>
 
-    <!-- Breakdown -->
     <div class="card">
       <div class="card-title">Aporte neto por capa</div>
       <div id="bd2"></div>
     </div>
   </div>
 
+  <!-- Footer -->
   <div class="footer">
-    Fórmula: <span>F = 1 − ∏(1 − Sᵢ)</span><br>
-    Costa Farms Maintenance · 2025
+    <svg width="54" height="45" viewBox="0 0 72 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:6px;">
+      <rect width="72" height="60" rx="10" fill="#E8A020"/>
+      <text x="36" y="34" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-size="22" font-weight="700" font-style="italic"
+        fill="white" letter-spacing="-0.5">costa</text>
+      <text x="36" y="47" text-anchor="middle"
+        font-family="'DM Sans', Arial, sans-serif"
+        font-size="8.5" font-weight="600"
+        fill="#1B3A5C" letter-spacing="3.5">FARMS</text>
+    </svg>
+    <div class="footer-sub">Maintenance Dept · Shade Calculator v2.0</div>
   </div>
 
-</div><!-- .app -->
+</div>
 
 <script>
-  // ---- State ----
-  const activeLS = { '1_3':false,'1_4':false,'1_5':false };
-  const activeLP = { '2_2':false,'2_3':false,'2_4':false };
-  const colors   = ['#4fa3e0','#3af0a2','#ff8c42','#a78bfa','#f472b6','#fbbf24'];
+  const activeLS = {'1_3':false,'1_4':false,'1_5':false};
+  const activeLP = {'2_2':false,'2_3':false,'2_4':false};
+  const dotColors = ['#1B3A5C','#3A7D44','#9a6500','#8B2E2E','#4a2a7a','#7a5000'];
 
-  // ---- Sync helpers ----
-  function sr(rid,nid){ document.getElementById(nid).value = document.getElementById(rid).value; }
+  function sr(rid,nid){ document.getElementById(nid).value=document.getElementById(rid).value; }
   function sn(rid,nid){
-    let v = parseFloat(document.getElementById(nid).value);
-    if(isNaN(v)) v=0; v=Math.min(100,Math.max(0,v));
+    let v=parseFloat(document.getElementById(nid).value);
+    if(isNaN(v))v=0; v=Math.min(100,Math.max(0,v));
     document.getElementById(nid).value=v; document.getElementById(rid).value=v;
   }
   function gv(id){ return parseFloat(document.getElementById(id).value)/100; }
 
-  // ---- Toggle ----
   function toggle(key,rowId,btnId,mode){
-    const map = mode==='ss' ? activeLS : activeLP;
-    map[key] = !map[key];
-    const on = map[key];
-    const row = document.getElementById(rowId);
-    const btn = document.getElementById(btnId);
-    row.classList.toggle('disabled', !on);
-    btn.textContent = on ? '− OFF' : '+ ON';
-    btn.classList.toggle('on', on);
-    row.querySelectorAll('input').forEach(i=>{ if(!i.classList.contains('toggle-btn')) i.disabled=!on; });
-    // re-enable number inputs specifically
-    row.querySelectorAll('input[type=range], input[type=number]').forEach(i=>i.disabled=!on);
-    mode==='ss' ? calcSS() : calcPS();
+    const map=mode==='ss'?activeLS:activeLP;
+    map[key]=!map[key];
+    const on=map[key];
+    const row=document.getElementById(rowId);
+    const btn=document.getElementById(btnId);
+    row.classList.toggle('disabled',!on);
+    btn.textContent=on?'−OFF':'+ON';
+    btn.classList.toggle('on',on);
+    row.querySelectorAll('input[type=range],input[type=number]').forEach(i=>i.disabled=!on);
+    mode==='ss'?calcSS():calcPS();
   }
 
-  // ---- Calc shared ----
-  function calcLayers(layers){
+  function calcLayers(defs){
     let t=1;
-    return layers.map(l=>{ const b=t; t*=(1-l.val); return {...l, aporte:b-t, transmission:t}; });
+    return defs.map(l=>{ const b=t; t*=(1-l.val); return {...l,aporte:b-t,transmission:t}; });
   }
 
-  function renderResult(combined, pass, formula, resId, blId, psId, fId, shadeId, lightId, bdId){
-    const c=(combined*100).toFixed(1), p=(pass*100).toFixed(1);
-    document.getElementById(resId).textContent = c+'%';
-    document.getElementById(blId).textContent  = c+'%';
-    document.getElementById(psId).textContent  = p+'%';
-    document.getElementById(fId).textContent   = formula;
-    const sv=document.getElementById(shadeId), lv=document.getElementById(lightId);
+  function renderResult(combined,pass,formula,resId,blId,psId,fId,shId,liId){
+    const c=(combined*100).toFixed(1),p=(pass*100).toFixed(1);
+    document.getElementById(resId).textContent=c+'%';
+    document.getElementById(blId).textContent=c+'%';
+    document.getElementById(psId).textContent=p+'%';
+    document.getElementById(fId).textContent=formula;
+    const sv=document.getElementById(shId),lv=document.getElementById(liId);
     sv.style.width=c+'%';
-    sv.textContent = parseFloat(c)>10 ? c+'%' : '';
-    lv.textContent = parseFloat(p)>6  ? p+'%' : '';
+    sv.textContent=parseFloat(c)>10?c+'%':'';
+    lv.textContent=parseFloat(p)>8?p+'%':'';
   }
 
-  function renderBreakdown(layers, bdId){
-    const max = Math.max(...layers.map(l=>l.aporte));
-    document.getElementById(bdId).innerHTML = layers.map((l,i)=>`
+  function renderBreakdown(layers,bdId){
+    const max=Math.max(...layers.map(l=>l.aporte));
+    document.getElementById(bdId).innerHTML=layers.map((l,i)=>`
       <div class="breakdown-row">
-        <span class="breakdown-dot" style="background:${colors[i]}"></span>
+        <span class="breakdown-dot" style="background:${dotColors[i]}"></span>
         <span class="breakdown-name">${l.label}</span>
         <div class="breakdown-bar-wrap">
-          <div class="breakdown-bar-fill" style="width:${max>0?(l.aporte/max*100).toFixed(0):0}%;background:${colors[i]}"></div>
+          <div class="breakdown-bar-fill" style="width:${max>0?(l.aporte/max*100).toFixed(0):0}%;background:${dotColors[i]}"></div>
         </div>
         <span class="breakdown-val">${(l.aporte*100).toFixed(1)}%</span>
       </div>`).join('');
   }
 
-  // ---- Shade+Shade ----
   function calcSS(){
     const defs=[
       {label:'Shade 1',id:'nb1_1',active:true},
@@ -711,15 +720,13 @@
       {label:'Shade 4',id:'nb1_4',active:activeLS['1_4']},
       {label:'Shade 5',id:'nb1_5',active:activeLS['1_5']},
     ].filter(l=>l.active).map(l=>({...l,val:gv(l.id)}));
-    const layers = calcLayers(defs);
-    const combined = 1 - layers[layers.length-1].transmission;
-    const pass     = 1 - combined;
-    const terms    = defs.map((_,i)=>`(1−S${i+1})`).join('×');
-    renderResult(combined,pass,`F = 1 − ${terms}`,'res1','bl1','ps1','f1','vsShade1','vsLight1','bd1');
+    const layers=calcLayers(defs);
+    const combined=1-layers[layers.length-1].transmission;
+    const terms=defs.map((_,i)=>`(1−S${i+1})`).join('×');
+    renderResult(combined,1-combined,`F = 1 − ${terms}`,'res1','bl1','ps1','f1','vsShade1','vsLight1');
     renderBreakdown(layers,'bd1');
   }
 
-  // ---- Plastic+Shade ----
   function calcPS(){
     const defs=[
       {label:'Plástico',id:'nb2_p',active:true},
@@ -728,15 +735,13 @@
       {label:'Shade 3', id:'nb2_3',active:activeLP['2_3']},
       {label:'Shade 4', id:'nb2_4',active:activeLP['2_4']},
     ].filter(l=>l.active).map(l=>({...l,val:gv(l.id)}));
-    const layers = calcLayers(defs);
-    const combined = 1 - layers[layers.length-1].transmission;
-    const pass     = 1 - combined;
-    const terms    = defs.map((l,i)=>`(1−${i===0?'P':'S'+i})`).join('×');
-    renderResult(combined,pass,`F = 1 − ${terms}`,'res2','bl2','ps2','f2','vsShade2','vsLight2','bd2');
+    const layers=calcLayers(defs);
+    const combined=1-layers[layers.length-1].transmission;
+    const terms=defs.map((l,i)=>`(1−${i===0?'P':'S'+i})`).join('×');
+    renderResult(combined,1-combined,`F = 1 − ${terms}`,'res2','bl2','ps2','f2','vsShade2','vsLight2');
     renderBreakdown(layers,'bd2');
   }
 
-  // ---- Tab switch ----
   function switchTab(n){
     document.getElementById('tab1').className='tab'+(n===1?' active':'');
     document.getElementById('tab2').className='tab'+(n===2?' active':'');
@@ -744,11 +749,10 @@
     document.getElementById('panel2').style.display=n===2?'':'none';
   }
 
-  // ---- PWA install prompt ----
+  // PWA install
   let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', e=>{
-    e.preventDefault();
-    deferredPrompt=e;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault(); deferredPrompt=e;
     const banner=document.getElementById('install-banner');
     banner.style.display='flex';
     document.getElementById('install-btn').addEventListener('click',()=>{
@@ -757,12 +761,8 @@
     });
   });
 
-  // ---- Service Worker ----
-  if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  }
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
-  // ---- Init ----
   calcSS(); calcPS();
 </script>
 </body>
